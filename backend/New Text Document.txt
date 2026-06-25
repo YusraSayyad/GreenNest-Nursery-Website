@@ -1,7 +1,0 @@
-
-
-
-
-PORT=5000
-JWT_SECRET=mysupersecretkey
-MONGO_URI=mongodb://admin:MyFirst123@ac-yu2nwrl-shard-00-00.jten4df.mongodb.net:27017,ac-yu2nwrl-shard-00-01.jten4df.mongodb.net:27017,ac-yu2nwrl-shard-00-02.jten4df.mongodb.net:27017/greennest?ssl=true&replicaSet=atlas-xqlpzn-shard-0&authSource=admin&appName=Cluster0
