@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Welcome | Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: url("background.jpg") no-repeat center center/cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* dark overlay */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+/* floating circles */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    animation: float 6s infinite ease-in-out;
+}
+
+.circle:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    top: 10%;
+    left: 15%;
+}
+
+.circle:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    bottom: 10%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.circle:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    top: 70%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 380px;
+    padding: 30px;
+    border-radius: 20px;
+
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    margin-bottom: 8px;
+}
+
+p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* ROLE BOX */
+.role-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.role {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.15);
+    transition: 0.3s;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.role:hover {
+    transform: scale(1.05);
+}
+
+.role.active {
+    background: #00c853;
+    color: white;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register {
+    background: #00c853;
+    color: white;
+}
+
+.login {
+    background: #2962ff;
+    color: white;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.footer {
+    margin-top: 12px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+    <h1>Welcome</h1>
+    <p>Select your role and continue</p>
+
+    <!-- ROLE SELECTION -->
+    <div class="role-box">
+        <div class="role active" onclick="selectRole('user', this)">User</div>
+        <div class="role" onclick="selectRole('admin', this)">Admin</div>
+        <div class="role" onclick="selectRole('seller', this)">Seller</div>
+    </div>
+
+    <button class="btn register" onclick="goToRegister()">
+        Create New Account
+    </button>
+
+    <button class="btn login" onclick="goToLogin()">
+        Sign In / Login
+    </button>
+
+    <div class="footer">
+        Secure Multi-Role Access Portal
+    </div>
+</div>
+
+<script>
+let selectedRole = "user";
+
+function selectRole(role, el) {
+    selectedRole = role;
+
+    document.querySelectorAll(".role").forEach(r => r.classList.remove("active"));
+    el.classList.add("active");
+}
+
+function goToRegister() {
+    window.location.href = `register.html?role=${selectedRole}`;
+}
+
+function goToLogin() {
+    window.location.href = `login.html?role=${selectedRole}`;
+}
+</script>
+
+</body>
+</html>

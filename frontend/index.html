@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GreenNest Nursery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+html {
+    scroll-behavior: smooth;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f9f6;
+}
+
+/* Top Bar */
+
+.top-bar{
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:8px;
+    font-size:14px;
+}
+
+/* Navbar */
+
+.navbar{
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#2e7d32;
+}
+
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+}
+
+.nav-links a:hover{
+    color:#2e7d32;
+}
+
+.nav-search{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    margin:0 30px;
+}
+
+.nav-search input{
+    width:350px;
+    padding:12px 18px;
+    border:1px solid #ccc;
+    border-radius:30px;
+    outline:none;
+    font-size:15px;
+}
+
+.nav-search input:focus{
+    border-color:#2e7d32;
+}
+/* Hero Section */
+
+.hero{
+    height:85vh;
+    background:
+    linear-gradient(rgba(0,0,0,0.4),
+    rgba(0,0,0,0.4)),
+    url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2000');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero-content{
+    border:3px solid white;
+    padding:40px;
+    color:white;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 30px;
+    background:#2e7d32;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    margin:5px;
+}
+
+.btn:hover{
+    background:#1b5e20;
+}
+.section-title{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    margin:40px auto;
+    color:#2e7d32;
+    font-size:34px;
+}
+
+/* Features */
+
+.features{
+    padding:60px 8%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.feature-box{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}.categories{
+    padding:0 8% 70px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.category-card{
+    position:relative;
+    display:block;
+    height:320px;
+    border-radius:15px;
+    overflow:hidden;
+    text-decoration:none;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    transition:transform 0.3s ease;
+}
+
+.category-card:hover{
+    transform:translateY(-8px);
+}
+
+.category-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.category-overlay{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:20px;
+    background:linear-gradient(transparent, rgba(0,0,0,0.7));
+    color:white;
+}
+
+.category-overlay h3{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.category-overlay p{
+    font-size:15px;
+}
+
+/* Products */
+
+.products{
+    padding:0 8% 70px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.product{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.product img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.product h3{
+    margin:15px 0;
+}
+
+.price{
+    color:#2e7d32;
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+.rating{
+    color:#ff9800;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.product-image{
+    position:relative;
+}
+
+.discount-badge{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:red;
+    color:white;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.product-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+}
+
+.buy-btn{
+    display:inline-block;
+    padding:12px 25px;
+    background:#ff9800;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.buy-btn:hover{
+    background:#e68900;
+}
+.services-horizontal{
+    padding:70px 8%;
+}
+
+.service-card-horizontal{
+    display:flex;
+    width:100%;
+    min-height:450px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12);
+}
+
+.service-left{
+    width:60%;
+}
+
+.service-left img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.service-right{
+    width:40%;
+    background:#f4c81f;
+    padding:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.service-right h2{
+    font-size:48px;
+    line-height:1.2;
+    margin-bottom:25px;
+    color:#111;
+}
+
+.service-right p{
+    font-size:20px;
+    line-height:1.7;
+    color:#333;
+    margin-bottom:35px;
+}
+
+.service-btn{
+    display:inline-block;
+    width:fit-content;
+    padding:16px 35px;
+    background:#0b5d47;
+    color:white;
+    text-decoration:none;
+    border-radius:40px;
+    font-weight:600;
+}
+
+.service-btn:hover{
+    background:#084737;
+}
+
+@media(max-width:768px){
+    .service-card-horizontal{
+        flex-direction:column;
+    }
+
+    .service-left,
+    .service-right{
+        width:100%;
+    }
+
+    .service-right{
+        padding:30px;
+    }
+
+    .service-right h2{
+        font-size:32px;
+    }
+
+    .service-right p{
+        font-size:16px;
+    }
+}
+.contact-section{
+    background: linear-gradient(135deg,#0b5d47,#0a3f32);
+    color:white;
+    padding:70px 8%;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.2fr;
+    gap:40px;
+    margin-bottom:40px;
+}
+
+.contact-brand h1{
+    font-size:60px;
+    color:#fff;
+    margin-bottom:30px;
+}
+
+.email-box{
+    display:flex;
+    background:rgba(255,255,255,0.12);
+    border-radius:12px;
+    overflow:hidden;
+    width:100%;
+    max-width:420px;
+    margin-bottom:30px;
+}
+
+.email-box input{
+    flex:1;
+    padding:16px;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:white;
+    font-size:16px;
+}
+
+.email-box input::placeholder{
+    color:#ddd;
+}
+
+.email-box button{
+    padding:16px 24px;
+    border:none;
+    background:transparent;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.social-icons{
+    display:flex;
+    gap:15px;
+}
+
+.social-icons span{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#f4c81f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.contact-grid h3{
+    color:#f4c81f;
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.contact-grid p{
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.map-box{
+    margin-top:20px;
+}
+
+@media(max-width:768px){
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .contact-brand h1{
+        font-size:40px;
+    }
+}
+/* Footer */
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:35px;
+}
+
+.nav-links{
+    display:none;
+}
+
+.hero{
+    height:70vh;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+🌿 Free Delivery On Orders Above ₹999
+</div>
+
+<nav class="navbar">
+    <div class="logo">GreenNest</div>
+
+    <div class="nav-search">
+        <input type="text" id="navbarSearch" placeholder="Search products or services...">
+    </div>
+
+
+<ul class="nav-links">
+<li><a href="#">Home</a></li>
+<li><a href="plants.html">Plants</a></li>
+<li><a href="pots.html">Pots</a></li>
+<li><a href="tool.html">Tools</a></li>
+<li><a href="seed.html">Seeds</a></li>
+<li><a href="#contact">Contact</a></li>
+<a href="cart.html">🛒 Cart</a>
+<li><a href="#" onclick="logout()">Logout</a></li>
+</ul>
+</nav>
+
+<section class="hero">
+<div class="hero-content">
+<h1>BEST GARDEN PLANTS</h1>
+<p>Plants, Pots, Tools & Gardening Services At Your Doorstep</p>
+
+<a href="#shopCategories" class="btn">Shop Now</a>
+<a href="service.html" class="btn">Book Service</a>
+</div>
+</section>
+
+<section class="features">
+
+<div class="feature-box">
+🚚 <h3>Free Delivery</h3>
+<p>On selected orders</p>
+</div>
+
+<div class="feature-box">
+🌱 <h3>Healthy Plants</h3>
+<p>Fresh from nursery</p>
+</div>
+
+<div class="feature-box">
+🛡️ <h3>Secure Payment</h3>
+<p>100% safe checkout</p>
+</div>
+
+<div class="feature-box">
+📞 <h3>24/7 Support</h3>
+<p>Expert gardening help</p>
+</div>
+
+</section>
+
+
+
+<h2 class="section-title">Shop By Category</h2>
+<section class="categories" id="shopCategories">
+
+
+
+
+    <a href="plants.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1000">
+        <div class="category-overlay">
+            <h3>Plants</h3>
+            <p>Indoor & outdoor plants</p>
+        </div>
+    </a>
+
+    <a href="pots.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?q=80&w=1000">
+        <div class="category-overlay">
+            <h3>Pots</h3>
+            <p>Stylish planters</p>
+        </div>
+    </a>
+
+    <a href="tools.html" class="category-card">
+        <img src="uploads/tool.jpg">
+        <div class="category-overlay">
+            <h3>Tools</h3>
+            <p>Gardening essentials</p>
+        </div>
+    </a>
+<a href="seed.html" class="category-card">
+    <img src="uploads/seed.avif">
+    <div class="category-overlay">
+        <h3>Seeds</h3>
+        <p>Vegetable & flower seeds</p>
+    </div>
+</a>
+
+</section>
+<h2 class="section-title" id="plants">Featured Products</h2>
+
+<section class="products" id="productContainer">
+</section>
+
+<div style="text-align:center; margin-bottom:50px;">
+    <button id="showMoreBtn" class="btn">Show More</button>
+</div>
+
+<section class="services-horizontal">
+    <div class="service-card-horizontal">
+
+        <div class="service-left">
+            <img src="uploads/garden.jpg" alt="Gardening Service">
+        </div>
+
+        <div class="service-right">
+            <h2>Garden Services by GreenNest</h2>
+
+            <p>
+                Our end-to-end Garden Services cover everything from botanical styling
+                and landscape architecture to curated planters and maintenance,
+                all tailored to your garden vision with zero hassle.
+            </p>
+
+            <a href="service.html" class="service-btn">
+                View All Garden Services
+            </a>
+        </div>
+
+    </div>
+</section>
+<section id="contact" class="contact-section">
+    <div class="contact-grid">
+
+        <!-- Left column -->
+        <div class="contact-brand">
+            <h1>GreenNest</h1>
+
+            <div class="email-box">
+                <input type="email" placeholder="Enter email address">
+                <button>→</button>
+            </div>
+
+            <div class="social-icons">
+                <span>📘</span>
+                <span>📷</span>
+                <span>▶️</span>
+                <span>💼</span>
+                <span>🐦</span>
+            </div>
+        </div>
+
+        <!-- Shop -->
+        <div>
+            <h3>Shop</h3>
+            <p>Plants</p>
+            <p>Pots & Planters</p>
+            <p>Tools</p>
+            <p>Seeds</p>
+        </div>
+
+        <!-- Services -->
+        <div>
+            <h3>Services</h3>
+            <p>Garden Setup</p>
+            <p>Landscaping</p>
+            <p>Plant Maintenance</p>
+            <p>Repotting</p>
+        </div>
+
+        <!-- Contact -->
+        <div>
+            <h3>Contact Us</h3>
+            <p>📧 greennest@gmail.com</p>
+            <p>📞 +91 9876543210</p>
+            <p>📍 Andheri, Mumbai</p>
+        </div>
+    </div>
+
+    <div class="map-box">
+        <iframe
+            src="https://www.google.com/maps?q=Mumbai&output=embed"
+            width="100%"
+            height="250"
+            style="border:0;border-radius:12px;"
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+<footer>
+<p>© 2026 GreenNest Nursery | Plants • Pots • Tools • Gardening Services</p>
+</footer>
+
+<script>
+let allProducts = [];
+let showingAll = false;
+
+async function loadProducts() {
+    try {
+        const response = await fetch("http://localhost:5000/products");
+        allProducts = await response.json();
+
+        displayProducts();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function displayProducts() {
+    const container = document.getElementById("productContainer");
+    container.innerHTML = "";
+
+    let productsToShow = showingAll ? allProducts : allProducts.slice(0, 4);
+
+   productsToShow.forEach((product, index) => {
+      container.innerHTML += `
+<div class="product">
+    <div class="product-image">
+        <img src="http://localhost:5000/uploads/${product.image}">
+        <span class="discount-badge">${product.discount}% OFF</span>
+    </div>
+
+    <h3>${product.name}</h3>
+    <p class="price">₹${product.price}</p>
+    <p class="rating">⭐ ${product.rating}</p>
+  <div class="product-buttons">
+    <a href="#" class="btn" onclick="addToCart('${product._id}'); return false;">Add to Cart</a>
+    <a href="#" class="buy-btn" onclick="buyNow(${index}); return false;">Buy Now</a>
+</div>
+</div>
+`;
+    });
+
+    if (allProducts.length <= 4) {
+        document.getElementById("showMoreBtn").style.display = "none";
+    }
+}
+
+document.getElementById("showMoreBtn").addEventListener("click", () => {
+    showingAll = true;
+    displayProducts();
+    document.getElementById("showMoreBtn").style.display = "none";
+});
+
+loadProducts();
+async function addToCart(productId) {
+console.log("Product ID:", productId);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user || !user._id) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const response = await fetch("http://localhost:5000/cart/add", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            userId: user._id,
+            productId: productId,
+            quantity: 1
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        alert("Added to cart!");
+    } else {
+        alert(data.message || "Failed to add to cart");
+    }
+}
+function buyNow(index) {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const product = allProducts[index];
+
+    localStorage.setItem("buyNowProduct", JSON.stringify({
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: 1
+    }));
+
+    window.location.href = "checkout.html";
+}
+
+document.getElementById("navbarSearch").addEventListener("input", function () {
+    const searchValue = this.value.toLowerCase();
+
+    const filteredProducts = allProducts.filter(product =>
+        product.name.toLowerCase().includes(searchValue) ||
+        product.category.toLowerCase().includes(searchValue)
+    );
+
+    const container = document.getElementById("productContainer");
+    container.innerHTML = "";
+
+    filteredProducts.forEach((product, index) => {
+        container.innerHTML += `
+        <div class="product">
+            <div class="product-image">
+                <img src="http://localhost:5000/uploads/${product.image}">
+                <span class="discount-badge">${product.discount}% OFF</span>
+            </div>
+            <h3>${product.name}</h3>
+            <p class="price">₹${product.price}</p>
+            <p class="rating">⭐ ${product.rating}</p>
+            <div class="product-buttons">
+                <a href="#" class="btn" onclick="addToCart('${product._id}'); return false;">Add to Cart</a>
+                <a href="#" class="buy-btn" onclick="buyNow(${index}); return false;">Buy Now</a>
+            </div>
+        </div>
+        `;
+    });
+});
+function logout() {
+    localStorage.removeItem("user");   // remove login session
+    localStorage.removeItem("token");  // if you are using token
+
+    alert("Logged out successfully!");
+
+    window.location.href = "login.html"; // redirect to login page
+}
+</script>
+
+</body>
+</html>

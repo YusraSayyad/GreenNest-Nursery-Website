@@ -1,0 +1,71 @@
+# =========================
+# Dependencies
+# =========================
+node_modules/
+
+# =========================
+# Environment variables / Secrets
+# =========================
+.env
+.env.local
+.env.development
+.env.production
+
+# =========================
+# Uploaded files (products/services/user uploads)
+# =========================
+uploads/
+backend/uploads/
+
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Editor / IDE files
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Cache / Temp
+# =========================
+.cache/
+tmp/
+temp/
+
+# =========================
+# Build folders (if later using React/Vite)
+# =========================
+dist/
+build/
+
+# =========================
+# Mongo dump / backups
+# =========================
+*.gz
+dump/
+backup/
+
+# =========================
+# Test coverage
+# =========================
+coverage/
+
+# =========================
+# Optional: package lock ignore?
+# Usually KEEP this tracked.
+# Uncomment only if needed
+# =========================
+# package-lock.json

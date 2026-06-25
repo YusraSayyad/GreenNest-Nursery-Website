@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Book Service - GreenNest</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:url("https://images.unsplash.com/photo-1466692476868-aef1dfb1e735") no-repeat center center/cover;
+    min-height:100vh;
+}
+
+.overlay{
+    background:rgba(0,0,0,0.65);
+    min-height:100vh;
+    color:white;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(8px);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:#7CFC98;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:1.6fr 0.8fr;
+    gap:20px;
+    padding:35px 8%;
+    align-items:start;
+}
+.card{
+    background:white;
+    color:black;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.card h2{
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-top:18px;
+    margin-bottom:10px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+textarea{
+    resize:none;
+    min-height:100px;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    margin-top:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#256428;
+}
+
+.payment-option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px;
+    border:2px solid #ccc;
+    border-radius:10px;
+    margin-top:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.payment-option:hover{
+    border-color:#2e7d32;
+}
+
+.payment-option.active{
+    background:#e8f5e9;
+    border-color:#2e7d32;
+}
+
+
+
+.summary-card{
+    max-width:380px;
+    padding:20px;
+    margin:auto;
+}
+
+.summary-title{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.summary-img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.service-name{
+    font-size:22px;
+    color:#1b5e20;
+    margin-bottom:8px;
+}
+
+.service-desc{
+    font-size:14px;
+    color:#666;
+    line-height:1.6;
+}
+
+.price-box{
+    font-size:28px;
+    color:#2e7d32;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    background:rgba(0,0,0,0.6);
+    color:white;
+    margin-top:40px;
+}
+
+@media(max-width:900px){
+    .container{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<div class="navbar">
+    <div class="logo">🌿 GreenNest Services</div>
+    <div>Book Service</div>
+</div>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="card">
+        <h2>Book Your Service</h2>
+
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="text" id="phone" placeholder="Phone Number">
+
+        <h3>Schedule Service</h3>
+        <input type="date" id="date">
+
+        <select id="timeSlot">
+            <option value="">Select Time Slot</option>
+            <option>9:00 AM - 11:00 AM</option>
+            <option>11:00 AM - 1:00 PM</option>
+            <option>1:00 PM - 3:00 PM</option>
+            <option>3:00 PM - 5:00 PM</option>
+            <option>5:00 PM - 7:00 PM</option>
+        </select>
+
+        
+
+        <input type="text" id="address" placeholder="Flat / House / Address">
+        <input type="text" id="city" placeholder="City">
+
+        <textarea id="notes" placeholder="Additional Notes"></textarea>
+
+        <h3>Payment Method</h3>
+
+        <div class="payment-option active" onclick="selectPayment(this,'UPI')">
+            <span>UPI</span>
+            <span>✔</span>
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this,'COD')">
+            <span>Cash on Service</span>
+            <span>✔</span>
+        </div>
+
+        <div class="payment-option" onclick="selectPayment(this,'CARD')">
+            <span>Card</span>
+            <span>✔</span>
+        </div>
+
+        <button class="btn" onclick="bookNow()">Confirm Booking</button>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="card summary-card">
+    <h2 class="summary-title">Service Summary</h2>
+
+    <img id="serviceImg" class="summary-img">
+
+    <h3 id="serviceName" class="service-name">Loading...</h3>
+
+    <p id="serviceDesc" class="service-desc">
+        Please wait...
+    </p>
+
+    <div class="price-box">
+        ₹ <span id="servicePrice">0</span>
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 GreenNest | All Rights Reserved
+</div>
+<script>
+let selectedPayment = "UPI";
+
+let serviceRequestId = null;
+
+/* GET SERVICE ID FROM URL */
+const urlParams = new URLSearchParams(window.location.search);
+serviceRequestId = urlParams.get("id");
+
+if(!serviceRequestId){
+    alert("Invalid service request");
+    window.location.href = "service.html";
+}
+
+/* LOAD SERVICE SUMMARY FROM DB */
+async function loadService() {
+    try {
+        const res = await fetch(
+            `http://localhost:5000/service-request/${serviceRequestId}`
+        );
+
+        const data = await res.json();
+        console.log("Service Response:", data);
+
+        const service =
+            data.serviceRequest?.service ||
+            data.serviceRequest ||
+            data.service ||
+            data;
+
+        if (!service) {
+            alert("Service data not found");
+            return;
+        }
+
+        // Show service details
+        document.getElementById("serviceName").innerText =
+            service.name || "Service Name";
+
+        document.getElementById("serviceDesc").innerText =
+            service.description ||
+            service.message ||
+            "No description available";
+
+        document.getElementById("servicePrice").innerText =
+            service.price || 0;
+
+        // FIX IMAGE PATH
+        let imagePath = "";
+
+        if (service.image && service.image !== "") {
+            if (service.image.startsWith("http")) {
+                imagePath = service.image;
+            }
+            else if (service.image.startsWith("uploads/")) {
+                imagePath = "http://localhost:5000/" + service.image;
+            }
+            else {
+                imagePath = "http://localhost:5000/uploads/" + service.image;
+            }
+        } else {
+            imagePath =
+                "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735";
+        }
+
+        document.getElementById("serviceImg").src = imagePath;
+
+        console.log("Final Image Path:", imagePath);
+
+    } catch (err) {
+        console.log(err);
+        alert("Failed to load service");
+    }
+}
+
+
+/* LOAD PAGE DATA */
+window.onload = function(){
+    loadService();
+};
+</script>
+
+
+<script>
+/* PAYMENT SELECTION */
+function selectPayment(element, method){
+    selectedPayment = method;
+
+    document.querySelectorAll(".payment-option")
+        .forEach(option => {
+            option.classList.remove("active");
+        });
+
+    element.classList.add("active");
+}
+
+
+/* BOOK SERVICE */
+async function bookNow(){
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const date = document.getElementById("date").value;
+    const timeSlot = document.getElementById("timeSlot").value;
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const notes = document.getElementById("notes").value.trim();
+
+    if(!name || !phone || !date || !timeSlot){
+        alert("Please fill all required fields");
+        return;
+    }
+
+    const payload = {
+        serviceRequestId,
+        name,
+        phone,
+        date,
+        timeSlot,
+        address,
+        city,
+        notes,
+        paymentMethod: selectedPayment,
+       
+    };
+
+    console.log("Booking Payload:", payload);
+
+    try{
+        const res = await fetch(
+            "http://localhost:5000/service-booking",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(payload)
+            }
+        );
+
+        const data = await res.json();
+        console.log(data);
+
+        if(res.ok){
+            alert("Service booked successfully!");
+            window.location.href = "success.html";
+        }else{
+            alert(data.message || "Booking failed");
+        }
+
+    }catch(err){
+        console.log(err);
+        alert("Server error");
+    }
+}
+</script>
+</div>
+</body>
+</html>

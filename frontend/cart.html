@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GreenNest Cart</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f4fff4;
+}
+
+/* NAVBAR */
+nav{
+    background:#2e7d32;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    padding:20px 50px;
+    align-items:center;
+}
+
+nav h2{
+    font-size:28px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+}
+
+/* MAIN */
+.container{
+    display:flex;
+    gap:30px;
+    padding:40px;
+}
+
+.cart-section{
+    flex:2;
+}
+
+.bill-section{
+    flex:1;
+    background:linear-gradient(135deg,#ffffff,#f1fff1);
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    height:fit-content;
+    position:sticky;
+    top:20px;
+    border:1px solid #d4f5d4;
+}
+
+/* BILL BOX IMPROVED */
+.bill-section h2{
+    margin-bottom:20px;
+    color:#2e7d32;
+}
+
+.bill-box{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.bill-row{
+    display:flex;
+    justify-content:space-between;
+    margin:10px 0;
+    font-size:16px;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    color:#1b5e20;
+}
+
+.cart-item{
+    display:flex;
+    gap:15px;
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    align-items:center;
+}
+
+.cart-item img{
+    width:110px;
+    height:110px;
+    border-radius:12px;
+    object-fit:cover;
+}
+
+.qty-box{
+    display:flex;
+    gap:10px;
+    margin:10px 0;
+    align-items:center;
+}
+
+.qty-box button{
+    width:32px;
+    height:32px;
+    border:none;
+    background:#4caf50;
+    color:white;
+    font-size:18px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.remove-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.buy-btn{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    background:linear-gradient(90deg,#2e7d32,#43a047);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.buy-btn:hover{
+    transform:scale(1.02);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h2>🌿 GreenNest Cart</h2>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="plants.html">Plants</a></li>
+        <li><a href="pots.html">Pots</a></li>
+        <li><a href="tool.html">Tools</a></li>
+ <li><a href="seed.html">Seeds</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div class="cart-section">
+        <h1>Your Cart</h1>
+        <br>
+        <div id="cartItems"></div>
+    </div>
+
+    <div class="bill-section">
+        <h2>Billing Summary</h2>
+
+        <div class="bill-box">
+            <div class="bill-row">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0</span>
+            </div>
+
+            <div class="bill-row">
+                <span>Delivery</span>
+                <span>₹50</span>
+            </div>
+
+            <div class="bill-row">
+                <span>GST (5%)</span>
+                <span id="gst">₹0</span>
+            </div>
+
+            <hr>
+
+            <div class="bill-row total">
+                <span>Total</span>
+                <span id="total">₹0</span>
+            </div>
+        </div>
+
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+</div>
+
+<script>
+
+async function loadCart(){
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if(!user){
+        window.location.href="login.html";
+        return;
+    }
+
+    const res = await fetch(`http://localhost:5000/cart/${user._id}`);
+    const cart = await res.json();
+
+    const container = document.getElementById("cartItems");
+    container.innerHTML = "";
+
+    let subtotal = 0;
+
+    if(!cart.items || cart.items.length === 0){
+        container.innerHTML = "<h3>Your cart is empty 🛒</h3>";
+        updateBill(0);
+        return;
+    }
+
+    cart.items.forEach(item => {
+
+        const product = item.productId; // populated product
+
+        if(!product) return;
+
+        subtotal += product.price * item.quantity;
+
+        container.innerHTML += `
+        <div class="cart-item">
+
+            <img src="http://localhost:5000/uploads/${product.image}">
+
+            <div>
+                <h3>${product.name}</h3>
+                <p>Price: ₹${product.price}</p>
+
+                <div class="qty-box">
+                    <button onclick="decreaseQty('${product._id}')">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="increaseQty('${product._id}')">+</button>
+                </div>
+
+                <button class="remove-btn" onclick="removeItem('${product._id}')">
+                    Remove
+                </button>
+            </div>
+
+        </div>
+        `;
+    });
+
+    updateBill(subtotal);
+}
+
+function updateBill(subtotal){
+    let delivery = 50;
+    let gst = subtotal * 0.05;
+    let total = subtotal + delivery + gst;
+
+    document.getElementById("subtotal").innerText = "₹" + subtotal;
+    document.getElementById("gst").innerText = "₹" + gst.toFixed(2);
+    document.getElementById("total").innerText = "₹" + total.toFixed(2);
+}
+
+async function increaseQty(productId){
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    await fetch("http://localhost:5000/cart/update",{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            userId:user._id,
+            productId,
+            action:"increase"
+        })
+    });
+
+    loadCart();
+}
+
+async function decreaseQty(productId){
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    await fetch("http://localhost:5000/cart/update",{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            userId:user._id,
+            productId,
+            action:"decrease"
+        })
+    });
+
+    loadCart();
+}
+
+async function removeItem(productId){
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    await fetch("http://localhost:5000/cart/remove",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            userId:user._id,
+            productId
+        })
+    });
+
+    loadCart();
+}
+
+document.querySelector(".buy-btn").addEventListener("click", ()=>{
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if(!user){
+        alert("Login first");
+        return;
+    }
+
+    window.location.href="checkout.html";
+});
+
+loadCart();
+
+</script>
+
+</body>
+</html>

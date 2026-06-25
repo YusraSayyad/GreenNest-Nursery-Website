@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GreenNest Services</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    background:#f5f7f3;
+}
+
+/* NAVBAR */
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:#1b5e20;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.logo{
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+.search-box input{
+    width:320px;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+}
+.nav-links{
+    display:flex;
+    gap:20px;
+}
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* HERO */
+.hero{
+    height:550px;
+    background:
+    linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+    url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2000');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+.hero h1{
+    font-size:60px;
+}
+.hero p{
+    font-size:24px;
+    margin:20px 0;
+}
+.hero button{
+    padding:16px 35px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* STATS */
+.stats{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:-50px;
+}
+.stat-card{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+.stat-card h2{
+    color:#2e7d32;
+    font-size:38px;
+}
+
+/* TITLES */
+.title{
+    text-align:center;
+    margin:70px 0 30px;
+    color:#1b5e20;
+    font-size:42px;
+}
+
+/* SERVICES */
+.services{
+    width:92%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+.service-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    transition:0.4s;
+}
+.service-card:hover{
+    transform:translateY(-12px);
+}
+.service-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    transition:0.4s;
+}
+.service-card:hover img{
+    transform:scale(1.08);
+}
+.content{
+    padding:20px;
+}
+.content h3{
+    color:#1b5e20;
+    margin-bottom:10px;
+}
+
+/* PRICING */
+.pricing{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+.price-card{
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.12);
+}
+.price-card h3{
+    color:#2e7d32;
+}
+.price{
+    font-size:42px;
+    margin:20px 0;
+    color:#1b5e20;
+}
+.price-card button{
+    margin-top:20px;
+    padding:14px 25px;
+    border:none;
+    background:#2e7d32;
+    color:white;
+    border-radius:10px;
+}
+
+/* CONTACT */
+.contact-section{
+    margin:70px auto;
+    width:92%;
+    display:flex;
+    gap:30px;
+    align-items:center;
+}
+
+.contact-image{
+    flex:1;
+}
+.contact-image img{
+    width:100%;
+    border-radius:25px;
+}
+
+.contact-box{
+    flex:1;
+    background:
+    linear-gradient(rgba(255,255,255,0.92),rgba(255,255,255,0.92)),
+    url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1000');
+    background-size:cover;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.contact-box h2{
+    color:#1b5e20;
+    font-size:36px;
+    margin-bottom:15px;
+}
+.contact-box p{
+    color:#555;
+    margin-bottom:25px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+    padding:16px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    font-size:15px;
+}
+
+textarea{
+    grid-column:span 2;
+    resize:none;
+    height:120px;
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:20px;
+    padding:18px;
+    border:none;
+    background:#2e7d32;
+    color:white;
+    font-size:18px;
+    border-radius:12px;
+}
+
+/* FAQ */
+.faq{
+    width:80%;
+    margin:auto;
+}
+details{
+    background:white;
+    margin:15px 0;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+summary{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+    margin-top:70px;
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.whatsapp{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#25D366;
+    color:white;
+    padding:18px;
+    border-radius:50%;
+    font-size:26px;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+    .services,.pricing,.stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .contact-section{
+        flex-direction:column;
+    }
+}
+@media(max-width:700px){
+    .services,.pricing,.stats,.form-grid{
+        grid-template-columns:1fr;
+    }
+    textarea{
+        grid-column:span 1;
+    }
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+}
+
+/* PROCESS */
+.process-section{
+    padding:80px 8%;
+    background:#f8fff8;
+    text-align:center;
+}
+
+.process-section h2{
+    font-size:42px;
+    color:#1b5e20;
+}
+
+.sub-title{
+    margin:15px 0 40px;
+    color:#666;
+    font-size:18px;
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+.process-card{
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    position:relative;
+    transition:0.3s;
+}
+
+.process-card:hover{
+    transform:translateY(-10px);
+}
+
+.step{
+    position:absolute;
+    top:-18px;
+    left:20px;
+    width:45px;
+    height:45px;
+    background:#2e7d32;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* REVIEWS */
+.reviews-section{
+    padding:80px 8%;
+    text-align:center;
+}
+
+.reviews-section h2{
+    font-size:42px;
+    color:#1b5e20;
+    margin-bottom:50px;
+}
+
+.reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.review-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-10px);
+}
+
+.quote{
+    font-size:50px;
+    color:#2e7d32;
+}
+
+.review-card p{
+    margin:20px 0;
+    line-height:1.8;
+    color:#555;
+}
+
+.review-card h4{
+    color:#2e7d32;
+}
+
+/* Responsive */
+@media(max-width:900px){
+    .process-grid,
+    .reviews-grid{
+        grid-template-columns:1fr;
+    }
+}
+.process-section{
+    padding:90px 8%;
+    background:linear-gradient(to bottom,#f4fff4,#ecf8ec);
+}
+
+.process-section h2{
+    text-align:center;
+    font-size:44px;
+    color:#1b5e20;
+}
+
+.sub-title{
+    text-align:center;
+    margin:15px 0 50px;
+    color:#666;
+    font-size:18px;
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;   /* smaller gap */
+}
+
+
+.process-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    transition:0.4s;
+    max-width:500px;   /* makes card smaller */
+    margin:auto;
+}
+
+.process-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.18);
+}
+
+.process-img{
+    position:relative;
+    overflow:hidden;
+}
+
+.process-img img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+.process-card:hover .process-img img{
+    transform:scale(1.08);
+}
+
+.step-badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:55px;
+    height:55px;
+    background:#2e7d32;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+}
+
+.process-content{
+    padding:25px;
+}
+
+.process-content h3{
+    color:#1b5e20;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.process-content p{
+    color:#666;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.process-content button{
+    background:linear-gradient(45deg,#2e7d32,#43a047);
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.process-content button:hover{
+    transform:scale(1.08);
+    box-shadow:0 8px 20px rgba(46,125,50,0.35);
+}
+
+@media(max-width:900px){
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">🌿 GreenNest</div>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search services...">
+    </div>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="plants.html">Plants</a>
+        <a href="seed.html">Seeds</a>
+        <a href="pots.html">Pots</a>
+        <a href="tool.html">Tools</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Year Round Garden Care</h1>
+        <p>Premium gardening services for homes & offices</p>
+        <button onclick="document.getElementById('contact').scrollIntoView()">Book Service</button>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat-card"><h2>500+</h2><p>Happy Clients</p></div>
+    <div class="stat-card"><h2>1000+</h2><p>Projects</p></div>
+    <div class="stat-card"><h2>8000+</h2><p>Plants Installed</p></div>
+    <div class="stat-card"><h2>24/7</h2><p>Support</p></div>
+</section>
+
+<h2 class="title">Our Services</h2>
+<section class="services">
+    <div class="service-card">
+        <img src="uploads/care.avif">
+        <div class="content"><h3>Garden Care</h3><p>Complete maintenance service.</p></div>
+    </div>
+    <div class="service-card">
+        <img src="uploads/vertical.webp">
+        <div class="content"><h3>Vertical Garden</h3><p>Green wall design service.</p></div>
+    </div>
+    <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?q=80&w=1200">
+        <div class="content"><h3>Plant Rental</h3><p>Rent plants for offices/events.</p></div>
+    </div>
+    <div class="service-card">
+        <img src="uploads/indoor.webp">
+        <div class="content"><h3>Indoor Styling</h3><p>Plant decor for interiors.</p></div>
+    </div>
+</section>
+
+<h2 class="title">Packages</h2>
+<section class="pricing">
+    <div class="price-card">
+        <h3>Basic</h3>
+        <div class="price">₹999</div>
+        <p>Monthly maintenance</p>
+        <button>Choose</button>
+    </div>
+
+    <div class="price-card">
+        <h3>Premium</h3>
+        <div class="price">₹2999</div>
+        <p>Weekly maintenance</p>
+        <button>Choose</button>
+    </div>
+
+    <div class="price-card">
+        <h3>Enterprise</h3>
+        <div class="price">₹5999</div>
+        <p>Corporate care package</p>
+        <button>Choose</button>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+    <div class="contact-image">
+        <img src="uploads/garden.avif">
+    </div>
+
+    <div class="contact-box">
+        <h2>Get in Touch With Us</h2>
+        <p>Book garden services and our team will contact you soon.</p>
+
+        <div class="form-grid">
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Phone Number">
+            <input type="text" placeholder="Location">
+
+            <select>
+                <option>Select Service</option>
+                <option>Garden Care</option>
+                <option>Vertical Garden</option>
+                <option>Plant Rental</option>
+                <option>Indoor Styling</option>
+            </select>
+
+            <textarea placeholder="Message"></textarea>
+        </div>
+
+<button class="submit-btn" onclick="getCallBack()">Get Call Back</button>
+    </div>
+</section>
+
+       <section class="process-section">
+    <h2>Our Process</h2>
+    <p class="sub-title">Greening your space made easy with GreenNest</p>
+
+    <div class="process-grid">
+
+        <div class="process-card">
+            <div class="process-img">
+                <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1200" alt="">
+                <div class="step-badge">1</div>
+            </div>
+            <div class="process-content">
+                <h3>Site Visit & Evaluation</h3>
+                <p>We inspect your location, sunlight, drainage, and available space.</p>
+                <button>Learn More</button>
+            </div>
+        </div>
+
+        <div class="process-card">
+            <div class="process-img">
+                <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=1200" alt="">
+                <div class="step-badge">2</div>
+            </div>
+            <div class="process-content">
+                <h3>Design & Planning</h3>
+                <p>Our experts create a personalized garden design for your home or office.</p>
+                <button>View Plan</button>
+            </div>
+        </div>
+
+        <div class="process-card">
+            <div class="process-img">
+                <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=1200" alt="">
+                <div class="step-badge">3</div>
+            </div>
+            <div class="process-content">
+                <h3>Installation</h3>
+                <p>We install plants, pots, irrigation systems, and decorative setups.</p>
+                <button>See Setup</button>
+            </div>
+        </div>
+
+        <div class="process-card">
+            <div class="process-img">
+                <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?q=80&w=1200" alt="">
+                <div class="step-badge">4</div>
+            </div>
+            <div class="process-content">
+                <h3>Maintenance & Care</h3>
+                <p>Regular trimming, watering, fertilizing and health monitoring.</p>
+                <button>Book Care</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+<h2 class="title">FAQ</h2>
+<section class="faq">
+    <details>
+        <summary>Do you provide home services?</summary>
+        <p>Yes, we provide services for homes and offices.</p>
+    </details>
+    <details>
+        <summary>Which cities are available?</summary>
+        <p>Currently Mumbai, Pune, Bangalore.</p>
+    </details>
+    <details>
+        <summary>Do you offer maintenance?</summary>
+        <p>Yes, monthly and yearly packages available.</p>
+    </details>
+</section>
+
+<section class="reviews-section">
+    <h2>What Our Customers Say</h2>
+
+    <div class="reviews-grid">
+        <div class="review-card">
+            <span class="quote">❝</span>
+            <p>
+                GreenNest transformed our office beautifully. The plants are
+                fresh and maintenance is excellent.
+            </p>
+            <h4>— Ayesha Khan</h4>
+        </div>
+
+        <div class="review-card">
+            <span class="quote">❝</span>
+            <p>
+                Very professional team. Their vertical garden design completely
+                changed our restaurant ambience.
+            </p>
+            <h4>— Rahul Mehta</h4>
+        </div>
+
+        <div class="review-card">
+            <span class="quote">❝</span>
+            <p>
+                Highly recommend their services. Fast installation and amazing support.
+            </p>
+            <h4>— Sana Shaikh</h4>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 GreenNest Services</p>
+</footer>
+
+<div class="whatsapp">💬</div>
+<script>
+function getCallBack(){
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if(!user){
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const nameInput = document.querySelector(".form-grid input[placeholder='Full Name']");
+    const phoneInput = document.querySelector(".form-grid input[placeholder='Phone Number']");
+    const locationInput = document.querySelector(".form-grid input[placeholder='Location']");
+    const serviceSelect = document.querySelector(".form-grid select");
+    const messageInput = document.querySelector(".form-grid textarea");
+
+    const serviceName = serviceSelect.value;
+
+    if(!serviceName || serviceName === "Select Service"){
+        alert("Please select a service");
+        return;
+    }
+
+    const payload = {
+        userId: user._id,
+        service: {
+            name: serviceName,
+            message: messageInput.value,
+            location: locationInput.value,
+
+            description: getServiceDescription(serviceName),
+            price: getServicePrice(serviceName),
+            image: getServiceImage(serviceName),
+            features: getServiceFeatures(serviceName)
+        }
+    };
+
+    fetch("http://localhost:5000/service-request/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(!data.serviceRequest || !data.serviceRequest._id){
+            alert("Server error");
+            return;
+        }
+
+        window.location.href =
+            `book-service.html?id=${data.serviceRequest._id}`;
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Server error");
+    });
+}
+
+/* ===== SERVICE DATA HELPERS ===== */
+
+function getServiceDescription(name){
+    const map = {
+        "Garden Care": "Complete garden maintenance including watering, pruning, fertilizing and pest control.",
+        "Vertical Garden": "Custom vertical green wall design for homes and offices.",
+        "Plant Rental": "Rent plants for events, weddings and offices.",
+        "Indoor Styling": "Interior decoration using premium plants."
+    };
+    return map[name] || "";
+}
+
+function getServicePrice(name){
+    const map = {
+        "Garden Care": 999,
+        "Vertical Garden": 2999,
+        "Plant Rental": 1999,
+        "Indoor Styling": 1499
+    };
+    return map[name] || 0;
+}
+
+function getServiceImage(name){
+    const map = {
+        "Garden Care": "http://localhost:5000/uploads/care.avif",
+        "Vertical Garden": "http://localhost:5000/uploads/vertical.webp",
+        "Plant Rental": "https://images.unsplash.com/photo-1459156212016-c812468e2115?q=80&w=1200",
+        "Indoor Styling": "http://localhost:5000/uploads/indoor.webp"
+    };
+
+    return map[name] || "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735";
+}
+
+function getServiceFeatures(name){
+    const map = {
+        "Garden Care": ["Watering", "Pruning", "Fertilizing", "Pest Control"],
+        "Vertical Garden": ["Wall Design", "Installation", "Drip System"],
+        "Plant Rental": ["Event Setup", "Weekly Replacement"],
+        "Indoor Styling": ["Interior Design", "Plant Placement"]
+    };
+    return map[name] || [];
+}
+</script>
+</body>
+</html>
